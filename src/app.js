@@ -18,6 +18,26 @@ server.listen(3000,'127.0.0.1'); */
 
 // console.log(k());
 
-const {v4 : uuidv4} = require('uuid');
+// const {v4 : uuidv4} = require('uuid');
 
-console.log (uuidv4());
+// console.log (uuidv4());
+
+const express = require("express");
+
+const app = express();
+
+app.get('/',(req,res)=>{
+    res.send('Hello World');
+});
+
+app.post('/',(req,res)=>{
+    res.send('Post Request');
+});
+
+const PORT = 3000;
+
+app.listen(PORT,()=>{
+    console.log(`App listening on port ${PORT}`);
+});
+
+

@@ -34,7 +34,7 @@ dotenv.config();
 const json= {
     "name":"Koena",
     "age":23,
-    "id":"0103116088081"
+    "id":""
 };
 
 app.get('/',(req,res)=>{
@@ -50,7 +50,7 @@ const PORT = process.env.PORT || 3000;
 
 const start = async()=>{
     try{
-        await mongoose.connect('mongodb+srv://afrob8:ThisIsANew@cluster0.zik2zwp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+        await mongoose.connect();
         app.listen(PORT,()=>{
             console.log(`App listening on port ${PORT}`);
         });

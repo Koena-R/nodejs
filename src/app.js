@@ -23,21 +23,41 @@ server.listen(3000,'127.0.0.1'); */
 // console.log (uuidv4());
 
 const express = require("express");
-
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+const mongoose = require("mongoose");
+mongoose.set("strictQuery",false);
+const dotenv = require("dotenv");
+dotenv.config();                     
+const json= {
+    "name":"Koena",
+    "age":23,
+    "id":"0103116088081"
+};
 
 app.get('/',(req,res)=>{
-    res.send('Hello World');
+    res.send({"data":json});
 });
 
-app.post('/',(req,res)=>{
-    res.send('Post Request');
+app.post('/submit/api',(req,res)=>{
+    res.send(req.body);
+    console.log(req.body);
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.listen(PORT,()=>{
-    console.log(`App listening on port ${PORT}`);
-});
+const start = async()=>{
+    try{
+        await mongoose.connect('mongodb+srv://afrob8:ThisIsANew@cluster0.zik2zwp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+        app.listen(PORT,()=>{
+            console.log(`App listening on port ${PORT}`);
+        });
+    }
+    catch(e){
+        console.log(e);
+    }
+};
 
-
+start();

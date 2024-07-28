@@ -29,8 +29,8 @@ app.use(express.urlencoded({extended:true}));
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery",false);
-const dotenv = require("dotenv");
-dotenv.config();                     
+/* const dotenv = require("dotenv");
+dotenv.config();  */                    
 const json= {
     "name":"Koena",
     "age":23,
@@ -46,11 +46,16 @@ app.post('/submit/api',(req,res)=>{
     console.log(req.body);
 });
 
-const PORT = process.env.PORT || 3000;
 
+if(process.env.NODE_ENV !== 'production'){
+    require("dotenv").config();
+}
+
+const PORT = process.env.PORT || 3000;
+const CONNECTION = process.env.CONNECTION;
 const start = async()=>{
     try{
-        await mongoose.connect('mongodb+srv://afrob8:ThisIsANew@cluster0.zik2zwp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+        await mongoose.connect(CONNECTION);
         app.listen(PORT,()=>{
             console.log(`App listening on port ${PORT}`);
         });

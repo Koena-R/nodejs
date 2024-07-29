@@ -30,15 +30,23 @@ app.use(express.urlencoded({extended:true}));
 const mongoose = require("mongoose");
 mongoose.set("strictQuery",false);
 /* const dotenv = require("dotenv");
-dotenv.config();  */                    
+dotenv.config();  */  
+const Customer = require('./models/customer');
+
 const json= {
     "name":"Koena",
     "age":23,
     "id":""
 };
 
+const customer = new Customer({
+    name: "caleb",
+    industry: "marketing"
+});
+
 app.get('/',(req,res)=>{
-    res.send({"data":json});
+//    res.send({"data":json});
+    res.send(customer);
 });
 
 app.post('/submit/api',(req,res)=>{
